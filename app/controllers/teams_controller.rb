@@ -47,6 +47,14 @@ class TeamsController < ApplicationController
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
   end
 
+  def change_administrator
+    @team = Team.friendly.find(params[:format])
+    @change_leader = User.find(params[:id])
+    @team.update_attributes(owner_id: @change_leader.id)
+    ChangeAdministratorMailer.change_administrator_mail(@change_leader,@team).deliver
+    redirect_to  @team, notice: I18n.t('views.messages.change_leader')
+  end
+
   private
 
   def set_team
