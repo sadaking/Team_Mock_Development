@@ -37,6 +37,9 @@
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
+            <p>
+              <%= link_to I18n.t('views.button.delete_button_agenda'), agenda_path(agenda), method: :delete, class: 'btn btn-sm btn-danger' %>
+            </p>
             <ul class="nav nav-treeview" style="display: block;">
               <% agenda.articles.each do |article| %>
                 <li class="nav-item">
