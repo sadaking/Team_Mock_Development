@@ -24,6 +24,7 @@ class AgendasController < ApplicationController
   def destroy
     if current_user == @agenda.user|| current_user == @agenda.team.owner
       @agenda.destroy
+      DeleteAgendaMailer.delete_agenda_mail(@agenda).deliver
       redirect_to dashboard_url , notice: I18n.t('views.messages.delete_agenda')
     else
       redirect_to dashboard_url , notice: I18n.t('views.messages.can\'t_delete_agenda')
